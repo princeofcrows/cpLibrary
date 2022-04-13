@@ -1,15 +1,17 @@
 # include <iostream>
 #include <vector>
 #include <queue>
-using namespace std;
 
-vector<vector<int> > adj;  // adjacency list representation
+using namespace std;
+#define MAXN 100005
+
+vector<int> adj[MAXN];  // adjacency list representation
 int n; // number of nodes
 int s; // source vertex
 
 queue<int> q;
-vector<bool> used(n); // visited nodes
-vector<int> d(n), p(n); // distance & parent
+vector<bool> used(MAXN, false); // visited nodes
+vector<int> d(MAXN, 0), p(MAXN, -1); // distance & parent
 
 void bfs() {
 	q.push(s);
@@ -37,9 +39,12 @@ void printPath(int u) {
 		cout << "No path!";
 	} else {
 		vector<int> path;
+
 		for (int v = u; v != -1; v = p[v])
 			path.push_back(v);
+
 		reverse(path.begin(), path.end());
+
 		cout << "Path: ";
 		for (int v : path)
 			cout << v << " ";
