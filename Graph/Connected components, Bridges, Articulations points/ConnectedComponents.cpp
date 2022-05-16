@@ -1,4 +1,4 @@
-# include <iostream>
+#include <iostream>
 #include <vector>
 #include <queue>
 
@@ -12,7 +12,7 @@ vector<int> comp;
 vector<vector<int> > compCol;
 
 void init(int n) {
-	for (int i = 0; i < n ; ++i) {
+	for (int i = 1; i <= n ; ++i) {
 		used [i] = false;
 	}
 }
@@ -32,7 +32,7 @@ void dfs(int v) {
 void findComps() {
 	init(n);
 
-	for (int i = 0; i < n ; ++i) {
+	for (int i = 1; i <= n ; ++i) {
 		if (!used[i]) {
 			comp.clear();
 			dfs(i);
