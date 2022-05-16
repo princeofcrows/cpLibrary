@@ -6,7 +6,7 @@ using namespace std;
 #define MAXN 100005
 
 int n; // number of nodes
-vector<vector<int> > adj; // adjacency list of graph
+vector<vector<int> > adj(MAXN); // adjacency list of graph
 
 vector<bool> visited;
 vector<int> tin, low;
@@ -38,10 +38,10 @@ void dfs(int v, int p = -1) {
 
 void findBridges() {
 	timer = 0;
-	visited.assign(n, false);
+	visited.assign(n+1, false);
 
-	tin.assign(n, -1);
-	low.assign(n, -1);
+	tin.assign(n+1, -1);
+	low.assign(n+1, -1);
 	bridges.clear();
 
 	for (int i = 1; i <= n; ++i) {
