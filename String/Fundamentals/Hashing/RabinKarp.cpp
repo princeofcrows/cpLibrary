@@ -3,7 +3,7 @@
 
 using namespace std;
 
-vector<int> rabin_karp(string const& s, string const& t) {
+vector<int> rabinKarp(string const& s, string const& t) {
 	const int p = 31;
 	const int m = 1e9 + 9;
 	int sLen = s.length(), tLen = t.length();
@@ -18,15 +18,15 @@ vector<int> rabin_karp(string const& s, string const& t) {
 	for (int i = 0; i < tLen; i++)
 		h[i+1] = (h[i] + (t[i] - 'a' + 1) * pPow[i]) % m;
 
-	long long h_s = 0;
+	long long hashS = 0;
 	for (int i = 0; i < sLen; i++)
-		h_s = (h_s + (s[i] - 'a' + 1) * pPow[i]) % m;
+		hashS = (hashS + (s[i] - 'a' + 1) * pPow[i]) % m;
 
 	vector<int> occurences;
 	for (int i = 0; i + sLen - 1 < tLen; i++) {
 		long long cur_h = (h[i+sLen] + m - h[i]) % m;
-		if (cur_h == h_s * pPow[i] % m)
-			occurences.push_back(i);
+		if (cur_h == hashS * pPow[i] % m)
+			occurences.push_back(i+1);
 	}
 
 	return occurences;
