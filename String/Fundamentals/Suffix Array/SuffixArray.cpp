@@ -101,6 +101,18 @@ vector <int> kasai(string txt, vector <int> sa) {
 	return lcp;
 }
 
+int longestRepeatingSubstring(string txt) {
+	vector <int> sa = buildSuffixArray(txt);
+	vector <int> lcp = kasai(txt, sa);
+
+	int result = 0;
+
+	for (int i = 0; i < lcp.size(); i++)
+		result = max(result, lcp[i]);
+
+	return result;
+}
+
 int countUniqueSubstring(string txt) {
 	int n = txt.length();
 
