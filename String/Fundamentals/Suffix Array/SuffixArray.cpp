@@ -1,6 +1,4 @@
 #include <bits/stdc++.h>
-#define MAXN 100005
-#define K 22
 
 using namespace std;
 
@@ -8,8 +6,6 @@ struct suffix {
 	int idx;
 	int rank[2];
 };
-
-suffix suffixes[K][MAXN];
 
 int comp(suffix a, suffix b) {
 	return (a.rank[0] == b.rank[0]) ?
@@ -19,57 +15,54 @@ int comp(suffix a, suffix b) {
 
 vector <int> buildSuffixArray(string str) {
 	int n = str.length();
+	suffix suffixes[n];
 
 	for (int i = 0; i < n; i++) {
-		suffixes[0][i].idx = i;
-		suffixes[0][i].rank[0] = str[i] - 'a';
-		suffixes[0][i].rank[1] = ((i + 1) < n) ? (str[i + 1] - 'a') : -1;
+		suffixes[i].idx = i;
+		suffixes[i].rank[0] = str[i] - 'a';
+		suffixes[i].rank[1] = ((i + 1) < n) ? (str[i + 1] - 'a') : -1;
 	}
 
-	sort(suffixes[0], suffixes[0] + n, comp);
+	sort(suffixes, suffixes + n, comp);
 
-	int ind[n], k = 1;
-	for (int j = 4 ; j < 2 * n; j = j * 2) {
+	int ind[n];
+	for (int j = 4; j < 2 * n; j = j * 2) {
 		int rank = 0;
-		int prevR = suffixes[k-1][0].rank[0];
+		int prevR = suffixes[0].rank[0];
 
-		suffixes[k][0].rank[0] = rank;
-		suffixes[k][0].idx = suffixes[k-1][0].idx;
-
-		ind[suffixes[k][0].idx] = 0;
+		suffixes[0].rank[0] = rank;
+		ind[suffixes[0].idx] = 0;
 
 		for (int i = 1; i < n; i++) {
-			if (suffixes[k-1][i].rank[0] == prevR &&
-			    suffixes[k-1][i].rank[1] == suffixes[k-1][i - 1].rank[1]
+			if (suffixes[i].rank[0] == prevR &&
+			    suffixes[i].rank[1] == suffixes[i - 1].rank[1]
 			    ) {
-				prevR = suffixes[k-1][i].rank[0];
-				suffixes[k][i].rank[0] = rank;
+				prevR = suffixes[i].rank[0];
+				suffixes[i].rank[0] = rank;
 			} else {
-				prevR = suffixes[k-1][i].rank[0];
-				suffixes[k][i].rank[0] = ++rank;
+				prevR = suffixes[i].rank[0];
+				suffixes[i].rank[0] = ++rank;
 			}
 
-			suffixes[k][i].idx = suffixes[k-1][i].idx;
-			ind[suffixes[k][i].idx] = i;
+			ind[suffixes[i].idx] = i;
 		}
 
 		for (int i = 0; i < n; i++) {
-			int nextIdx = suffixes[k][i].idx + j / 2;
-			suffixes[k][i].rank[1] = (nextIdx < n) ?
-			                         suffixes[k][ind[nextIdx]].rank[0] : -1;
+			int nextIdx = suffixes[i].idx + j / 2;
+			suffixes[i].rank[1] = (nextIdx < n) ?
+			                      suffixes[ind[nextIdx]].rank[0] : -1;
 		}
 
-		sort(suffixes[k], suffixes[k] + n, comp);
-
-		k++;
+		sort(suffixes, suffixes + n, comp);
 	}
 
 	vector <int> sa;
 	for (int i = 0; i < n; i++)
-		sa.push_back(suffixes[k-1][i].idx);
+		sa.push_back(suffixes[i].idx);
 
 	return sa;
 }
+
 
 vector <int> kasai(string txt, vector <int> sa) {
 	int n = sa.size();
