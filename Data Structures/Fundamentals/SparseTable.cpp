@@ -20,7 +20,7 @@ void initSparseTable(int n){
 	}
 }
 
-int query(int L, int R, int n){
+int query(int L, int R){
 	int ans = 0;
 	for(int j = K; j >= 0; j--) {
 		if(L + (1<<j) - 1 <= R) {

@@ -9,9 +9,11 @@ using namespace std;
 #define piii pair <int, pii>
 #define vi vector<int>
 #define vll vector<long long>
+#define vpi vector<pii>
 #define mii map<int, int>
 #define msi map<string, int>
 #define si set<int>
+#define spi set<pii>
 
 // Method or var shorthands
 #define fi first
