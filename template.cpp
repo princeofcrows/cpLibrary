@@ -53,6 +53,16 @@ ll lcm(ll a,ll b) {
 	return a/gcd(a,b)*b;
 }
 
+int Set(int N,int pos){
+	return N=N | (1<<pos);
+}
+int reset(int N,int pos){
+	return N= N & ~(1<<pos);
+}
+bool check(int N,int pos){
+	return (bool)(N & (1<<pos));
+}
+
 void yes() {
 	cout << "YES\n";
 }
