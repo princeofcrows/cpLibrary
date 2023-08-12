@@ -23,14 +23,17 @@ using namespace std;
 #define ub upper_bound
 #define all(v) v.begin(), v.end()
 #define sort_all(v) sort(all(v));
-#define rev_all(v) rev(all(v));
+#define rev_all(v) reverse(all(v));
 #define mem(ara, x) memset(ara, x, sizeof ara)
 
 // Const
 #define mod 1000000007
+// 28722900390631
 #define inf 1e18+19
 #define mx 200015
 #define pi acos(-1.0)
+#define seed 997
+// 769 919 647 839
 
 // Input Output
 #define sild(x) scanf("%lld", &x)
